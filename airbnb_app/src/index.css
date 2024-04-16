@@ -1,0 +1,19 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+*{
+    @apply outline-none;
+}
+
+
+input[type='email'],input[type='text'],input[type='password'],input[type='number'],textarea{
+    @apply w-full border py-2 px-3 my-1 rounded-xl  placeholder:text-gray-700;
+}
+
+button.login{
+background-color: #F5385D;
+@apply w-full text-white py-2 rounded-xl 
+}
