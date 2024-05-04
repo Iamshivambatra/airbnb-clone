@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams ,Navigate} from "react-router-dom"
+import { Link, useParams, Navigate } from "react-router-dom"
 
 function Placepage() {
     const { _id } = useParams();
     const [place, setPlace] = useState(null);
     const [redirect, setRedirect] = useState(false);
     const [show, showAll] = useState(false);
+    const [checkin, setCheckin] = useState('');
+    const [checkout, setCheckout] = useState('');
+    const [maxguests, setMaxguests] = useState(1);
     useEffect(() => {
         if (!_id) {
             return;
@@ -41,7 +44,7 @@ function Placepage() {
         return;
     }
 
-    function Book(e){
+    function Book(e) {
         e.preventDefault();
         setRedirect(true);
     }
@@ -87,26 +90,26 @@ function Placepage() {
                     Max number of guests: {place.maxguests}
                 </div>
                 <div className="bg-white shadow  p-4 rounded-2xl">
-                    <div className="text-2xl text-center">
-                        Price: ${place.price} / per night
+                    <div className="text-xl  items-center text-center">
+                      <span className="font-bold">Price: ${place.price}/</span><span className="text-sm font-bold"> per night</span> 
                     </div>
                     <div className="border rounded-2xl mt-4">
                         <div className="flex">
                             <div className="py-3 px-4">
                                 <label>Check in:</label>
-                                <input type="date" />
+                                <input type="date"  value={checkin} onChange={e => setCheckin(e.target.value)}/>
                             </div>
                             <div className="py-3 px-4 border-1">
                                 <label>Check out:</label>
-                                <input type="date" />
+                                <input type="date"  value={checkout} onChange={e => setCheckout(e.target.value)} />
                             </div>
                         </div>
                         <div className="py-3 px-4 border-t">
                             <label>Number of guests:</label>
-                            <input type="text" value={1} />
+                            <input type="text" value={maxguests}  onChange={e => setMaxguests(e.target.value)}  />
                         </div>
                         <div className="items-center p-3 text-center w-full">
-                            <button onClick={(e)=>Book(e)} type="button" className="login">Book</button>
+                            <button onClick={(e) => Book(e)} type="button" className="login">Book</button>
                         </div>
                     </div>
                 </div>
