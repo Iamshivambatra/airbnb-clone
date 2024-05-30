@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
+  "dependencies": {
+    "css-loader": "^7.1.2",
+    "postcss-loader": "^8.1.1"
+  }
+}
