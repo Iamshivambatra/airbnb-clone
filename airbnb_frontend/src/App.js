@@ -16,7 +16,10 @@ import Placepage from './pages/placePage';
 import Placesformpage from './pages/placesformpage';
 import Bookings from './pages/bookings';
 
-axios.defaults.baseURL='http://localhost:8000';
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production"
+    ? "https://airbnb-clone-2-fqnc.onrender.com"
+    : "http://localhost:8000";
 axios.defaults.withCredentials = true;
 
 
