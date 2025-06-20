@@ -6,7 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
-axios.defaults.baseURL='http://localhost:8000';
+axios.defaults.baseURL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:8000'
+    : 'https://airbnb-clone-2-fqnc.onrender.com'; 
+
 axios.defaults.withCredentials = true;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
