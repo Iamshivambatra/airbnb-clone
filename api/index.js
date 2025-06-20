@@ -1,10 +1,10 @@
 const Express = require('express');
 const CORS = require('cors');
 const fs = require('fs');
-const port = process.env.port || 8000;
+const port = process.env.PORT || 8000;
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const mongoose = require('./db/mongoose');
+const mongoose = require('mongoose');
 const UserModel = require('./db/userModel');
 const cookieparser = require('cookie-parser');
 const placeModel = require('./db/place');
@@ -17,9 +17,13 @@ const PhotosmiddleWare = multer({ dest: 'upload' });
 const app = Express();
 
 app.use(CORS({
-    origin: 'http://localhost:3000',
-    credentials: true
+  origin: [
+    'http://localhost:3000',
+    'https://your-vercel-app.vercel.app'  // replace with your actual deployed frontend URL
+  ],
+  credentials: true
 }));
+
 app.use('/upload', Express.static(__dirname + '/upload'));
 app.use(Express.json());
 app.use(cookieparser());
@@ -32,9 +36,10 @@ app.set('uploads', path.join(__dirname + 'upload'));
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtsecret = 'kfbqerkjbfkerbfkjqbgi34br3fb';
 
-app.get('/test', (req, res, next) => {
-    res.send('hello');
-})
+app.get('/api/test', (req, res) => {
+  res.json({ status: 'ok', message: 'Backend working' });
+});
+
 
 app.post('/register', async (req, res) => {
 
@@ -61,7 +66,11 @@ app.post('/login', async (req, res, next) => {
                 if (err) {
                     throw err;
                 }
-                return res.cookie('token', token).json(UserDoc);
+               res.cookie('token', token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+}).json(UserDoc);
 
             })
         }
